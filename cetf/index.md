@@ -2,9 +2,9 @@
 
 _Published: Sept 20th 2021_ | _Updated: April 22nd 2026_
 
-Versions 1.0 - 3.4 CC-BY 4.0 by Maaret Pyhäjärvi
+<small>Versions 1.0 - 3.4 CC-BY 4.0 by Maaret Pyhäjärvi
 
-Version 4.0 - CC-BY-NC-SA 4.0 by CGI / Maaret Pyhäjärvi
+Version 4.0 - CC-BY-NC-SA 4.0 by CGI / Maaret Pyhäjärvi</small>
 
 - Keywords: testing, exploratorytesting, testautomation, course
 
