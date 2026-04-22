@@ -46,7 +46,7 @@ This is what we fit into two days with one application. Theory and application g
 
 In it's current format, the course takes two days in a classroom to deliver with many different passes. We are working to build a video course on the scope of the course, to enable people to learn this in scale as we are unable to make space for classroom guidance for everyone - we prioritize working as testers in projects over being teachers of testing. Thus the course material is openly available to use as is, or to freely adapt to scope of your choosing. We have delivered it in 99 minute segments combining various constraints learning it takes a minimum of three sessions to go through the ensemble testing to cover the application without theory slides.
 
-Contemporary Exploratory Testing Foundations by Maaret Pyhäjärvi is licensed under CC BY 4.0. To view a copy of this license, visit <http://creativecommons.org/licenses/by/4.0/>
+Contemporary Exploratory Testing Foundations by CGI/ Maaret Pyhäjärvi is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit <http://creativecommons.org/licenses/by-nc-sa/4.0/>. Latest version of material is (c) CGI / Maaret Pyhäjärvi 2026 and earlier releases are (c) Maaret Pyhäjärvi 2021-2024, available with CC-BY 4.0 license.
 
 ![Optimizing Value of Testing](./slide-images/Slide2.png)
 
