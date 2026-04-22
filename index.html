@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Portal — CGI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 3px solid #E31937;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    header img.logo {
+      height: 32px;
+      width: auto;
+    }
+
+    header .divider {
+      width: 1px;
+      height: 28px;
+      background: #ddd;
+    }
+
+    header .portal-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      flex: 1;
+    }
+
+    .lang-switcher {
+      display: flex;
+      gap: 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #fff;
+      color: #888;
+      border: none;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .lang-btn + .lang-btn {
+      border-left: 1px solid #ddd;
+    }
+
+    .lang-btn.active {
+      background: #E31937;
+      color: #fff;
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    .hero {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 span { color: #E31937; }
+
+    .hero p {
+      font-size: 0.95rem;
+      opacity: 0.7;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section h2 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #E31937;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 4px;
+      border-top: 3px solid #E31937;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      transform: translateY(-1px);
+    }
+
+    .card.hidden { display: none; }
+
+    .card-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.3rem 0.85rem;
+      background: #fdf0f2;
+      color: #E31937;
+    }
+
+    .card-badge.pdf {
+      background: #f5f5f5;
+      color: #555;
+    }
+
+    .card-body {
+      padding: 1rem 1.25rem 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+      color: #1a1a1a;
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: #888;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: #444;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      background: #f4f4f4;
+      color: #666;
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      border-radius: 3px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-primary { background: #E31937; color: #fff; }
+    .btn-primary:hover { background: #c0112c; }
+
+    .btn-secondary {
+      background: #f4f4f4;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover { background: #e8e8e8; }
+
+    .empty-state {
+      display: none;
+      color: #aaa;
+      font-size: 0.9rem;
+      padding: 1.5rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
+      border-top: 1px solid #e8e8e8;
+      background: #fff;
+      margin-top: 2rem;
+    }
+
+    footer a { color: #888; }
+  </style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="logo.svg" alt="CGI">
+  <div class="divider"></div>
+  <span class="portal-name" data-i18n="portalName">Material Portal</span>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="fi">FI</button>
+  </div>
+</header>
+
+<div class="hero">
+  <h1 data-i18n="heroTitle">Course Materials &amp; <span>Presentations</span></h1>
+  <p data-i18n="heroSub">Open learning resources — CC BY-NC-SA 4.0 &copy; CGI / Maaret Pyhäjärvi</p>
+</div>
+
+<main>
+
+  <section id="courses">
+    <h2 data-i18n="coursesHeading">Course Materials</h2>
+    <div class="card-grid">
+
+      <div class="card" data-lang="en">
+        <div class="card-badge">Course</div>
+        <div class="card-body">
+          <div class="card-title">Contemporary Exploratory Testing Foundations</div>
+          <div class="card-meta">Published: Sept 20, 2021 &nbsp;·&nbsp; Updated: April 22, 2026</div>
+          <div class="card-desc">
+            Foundational concepts of contemporary exploratory testing centered on optimizing value of testing. Covers agency, learning, test automation as documentation, and multidisciplinary perspectives — taught around one shared test target.
+          </div>
+          <div class="card-tags">
+            <span class="tag">testing</span>
+            <span class="tag">exploratory testing</span>
+            <span class="tag">test automation</span>
+            <span class="tag">course</span>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="cetf/index.html">Read Course</a>
+            <a class="btn btn-secondary" href="cetf/cetf_v3.0.pdf" target="_blank">PDF</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="empty-state" id="courses-empty" data-i18n="coursesEmpty">No course materials available in this language yet.</p>
+  </section>
+
+  <section id="presentations">
+    <h2 data-i18n="presentationsHeading">Presentations</h2>
+    <div class="card-grid">
+
+      <div class="card" data-lang="en">
+        <div class="card-badge pdf">Presentation · PDF</div>
+        <div class="card-body">
+          <div class="card-title">Contemporary Exploratory Testing Foundations — Slides</div>
+          <div class="card-meta">Version 3.0</div>
+          <div class="card-desc">
+            Full slide deck for the CETF course. Suitable for classroom delivery or self-study.
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="viewer.html?pdf=cetf/cetf_v3.0.pdf&title=CETF+Slides">View Presentation</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="empty-state" id="presentations-empty" data-i18n="presentationsEmpty">No presentations available in this language yet.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p data-i18n="footer">Licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> &nbsp;|&nbsp; &copy; CGI / Maaret Pyhäjärvi</p>
+</footer>
+
+<script>
+  const LANG_KEY = 'portal-lang';
+
+  const t = {
+    en: {
+      portalName:            'Material Portal',
+      heroTitle:             'Course Materials &amp; <span>Presentations</span>',
+      heroSub:               'Open learning resources \u2014 CC BY-NC-SA 4.0 &copy; CGI / Maaret Pyh&auml;j&auml;rvi',
+      coursesHeading:        'Course Materials',
+      coursesEmpty:          'No course materials available in this language yet.',
+      presentationsHeading:  'Presentations',
+      presentationsEmpty:    'No presentations available in this language yet.',
+      footer:                'Licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> &nbsp;|&nbsp; &copy; CGI / Maaret Pyh&auml;j&auml;rvi',
+    },
+    fi: {
+      portalName:            'Materiaalipankki',
+      heroTitle:             'Kurssimateriaali &amp; <span>Esitykset</span>',
+      heroSub:               'Avoimet oppimisresurssit \u2014 CC BY-NC-SA 4.0 &copy; CGI / Maaret Pyh&auml;j&auml;rvi',
+      coursesHeading:        'Kurssimateriaali',
+      coursesEmpty:          'T&auml;ll&auml; kielell&auml; ei ole viel&auml; kurssimateriaalia.',
+      presentationsHeading:  'Esitykset',
+      presentationsEmpty:    'T&auml;ll&auml; kielell&auml; ei ole viel&auml; esityksi&auml;.',
+      footer:                'Lisensoitu <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> -lisenssill&auml; &nbsp;|&nbsp; &copy; CGI / Maaret Pyh&auml;j&auml;rvi',
+    }
+  };
+
+  function applyLang(lang) {
+    const strings = t[lang] || t.en;
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    document.documentElement.lang = lang;
+
+    // Translate all labelled elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (strings[key] !== undefined) el.innerHTML = strings[key];
+    });
+
+    // Show/hide cards and toggle empty states
+    ['courses', 'presentations'].forEach(sectionId => {
+      const grid = document.querySelector(`#${sectionId} .card-grid`);
+      const empty = document.getElementById(`${sectionId}-empty`);
+      let visible = 0;
+      grid.querySelectorAll('.card').forEach(card => {
+        const match = card.dataset.lang === lang;
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      empty.style.display = visible === 0 ? 'block' : 'none';
+    });
+
+    localStorage.setItem(LANG_KEY, lang);
+  }
+
+  const saved = localStorage.getItem(LANG_KEY);
+  const browserLang = navigator.language.toLowerCase().startsWith('fi') ? 'fi' : 'en';
+  applyLang(saved || browserLang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+</script>
+
+</body>
+</html>

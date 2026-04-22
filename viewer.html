@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation Viewer — CGI Material Portal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a1a;
+      color: #eee;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: #fff;
+      border-bottom: 3px solid #E31937;
+      padding: 0.65rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav img.logo {
+      height: 24px;
+      width: auto;
+    }
+
+    nav .divider {
+      width: 1px;
+      height: 20px;
+      background: #ddd;
+    }
+
+    nav a.back {
+      color: #555;
+      text-decoration: none;
+      font-size: 0.83rem;
+    }
+
+    nav a.back:hover { color: #E31937; }
+
+    nav .sep { color: #ccc; }
+
+    nav .title {
+      color: #1a1a1a;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      display: block;
+    }
+
+    #no-pdf {
+      flex: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #f08080;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <img class="logo" src="logo.svg" alt="CGI">
+    <div class="divider"></div>
+    <a class="back" href="index.html">&#8592; Portal</a>
+    <span class="sep">/</span>
+    <span class="title" id="nav-title">Presentation</span>
+  </div>
+</nav>
+
+<iframe id="pdf-frame" src="" title="PDF Presentation"></iframe>
+<div id="no-pdf">No PDF specified.</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const pdfPath = params.get('pdf') || '';
+  const title = params.get('title') ? decodeURIComponent(params.get('title')) : 'Presentation';
+
+  document.title = title + ' — CGI Material Portal';
+  document.getElementById('nav-title').textContent = title;
+
+  if (pdfPath) {
+    document.getElementById('pdf-frame').src = pdfPath;
+  } else {
+    document.getElementById('pdf-frame').style.display = 'none';
+    document.getElementById('no-pdf').style.display = 'flex';
+  }
+</script>
+</body>
+</html>
