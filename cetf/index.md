@@ -1,6 +1,6 @@
 # Contemporary Exploratory Testing Foundations
 
-_Published: Sept 20th 2021_ | _Updated: April 22nd 2026_
+_Published: Sept 20th 2021_ | _Updated: July 29nd 2026_
 
 <small>Versions 1.0 - 3.4 CC-BY 4.0 by Maaret Pyhäjärvi
 
@@ -13,6 +13,8 @@ With so much to say and share on Exploratory Testing, what would you need to kno
 Special thanks for updating of course materials v.4.0 to Rasmus Kaakinen, who carefully curated slide styles to their updated format. The skills of choosing constraints and testing with intent are all the more important in age of AI, and contemporary exploratory testing is the differentiator of humans to agents to raise the bar of results: information.
 
 To create the original course, Maaret Pyhäjärvi paired to test the application under test with the brilliant Irja Straus (Croatia), Parveen Khan (United Kingdom), Julia Durán Muñoz (Spain) and Mirja Pyhäjärvi (Finland). The application and lessons were tried with many ensemble testing groups to finally come to be summarized as part of the course. We particularly want to appreciate two open space communities in creation of this content: [Socrates UK](https://socratesuk.org) and [Friends of Good Software](https://frogsconf.nl). Both served as places to try out hands-on testing of the application to see the dynamics under various constraints.
+
+[Capture the bug](https://exploratory-testing-academy.github.io/capture-the-bugs/) -application to provide you in app feedback as you are learning to test is co-created with Ru Cindrea.
 
 Material refers to a few people: Elisabeth Hendrickson (USA) and Elizabeth Zagroba (Netherlands), Cem Kaner (USA) and Alan Richardson (UK). These are all people whose material you should consume if you haven't already.
 
@@ -1248,6 +1250,8 @@ We have watched groups start with this, end with this, and try this in the middl
 
 ![Use of Time](./slide-images/Slide72.png)
 
+## Time, Traps, and Coverage
+
 You have made it through all of the constraints we wanted you to apply on E-Primer, and if you completed all the exercises, you would have spent a day on this course. We teach this in classroom focusing on exercises and these barely fit into a day. With exercises, discussion and the theory in the written material, this course takes usually two working days. In the end of that time, we are all bored of the E-Primer application and wish for something else to test.
 
 Being aware of time you use is core to exploratory testing. We will discuss this briefly.
@@ -1325,6 +1329,8 @@ You thought about time, now think about coverage. Would the testing you did and 
 Can you still think of something we did not test? Maybe Security? Performance? Or Reliability?
 
 ![Test Strategy](./slide-images/Slide80.png)
+
+## Strategy, Results, and Closing the Loop
 
 Strategy - ideas guiding our test design - is usually something we think of as starting with,
 to target our testing to match those ideas. Yet given an application that we know nothing of,
@@ -1412,7 +1418,10 @@ You will find some, maybe even many, usually more than those in the team that do
 
 ![Known issues](./slide-images/Slide86.png)
 
-To score yourself on ability to find bugs, here are the 22 of the 34 we know of:
+The 65 known issues and 35 essentially different inputs to finding some of them are encoded in a learning application at
+[https://exploratory-testing-academy.github.io/capture-the-bugs/](https://exploratory-testing-academy.github.io/capture-the-bugs/).
+
+To score yourself on ability to find bugs, here are the 22 we know of:
 
     •	Long text moves button outside user's access as vertical scroll is disabled
     •	Two words separated by line feed are counted as one
@@ -1437,7 +1446,7 @@ To score yourself on ability to find bugs, here are the 22 of the 34 we know of:
     •	If word is in single quotes, it is not properly recognized as e-prime.
     •	Text box location in UI is not where user would expect it to be as per the logic of how web pages are usually operating
 
-The image from slide has a few more mentions that have been identified later.
+The image from slide has a few more mentions that have been identified later, and the application support is the latest master information.
 
 ![Let's Test](./slide-images/Slide87.png)
 
